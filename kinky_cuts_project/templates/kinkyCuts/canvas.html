@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 
+<head>
 <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+</head>
+
 <style>
 
 .btn-file {
@@ -64,6 +68,7 @@
 
 	<img id="face" src={% static "images/baldguy.png" %} draggable="false" style="visibility:hidden">
 	
+	
 	<script>
 		var draggedIndex = "0";
 		var droppedItem = false;
@@ -78,6 +83,7 @@
 
 			window.onload = function()
 			{
+				var element = document.getElementById("userFile");
 				var can = document.getElementById("canvas");
 				can.addEventListener("dragstart", dragStart, false);
 				can.addEventListener("dragover", allowDrop, false);
@@ -85,18 +91,16 @@
 				can.addEventListener("drag", dragMain, false);
 				can.addEventListener("dragend", dragEnd, false);
 				can.addEventListener("mousemove", mouseMove, false);
-				var imgBack = document.getElementById("face");
 			}
 
 			setInterval(function()
 			{
-
 				var can = document.getElementById("canvas");
 				var con = can.getContext("2d");
 				con.clearRect(0,0, can.width, can.height);
 				var imgFace = document.getElementById("face");
-				var userFace = document.getElementById("userFile");
-				//con.drawImage(imgFace, imageXOffset, imageYOffset, can.width * scale, can.height * scale);
+				
+				con.drawImage(imgFace, imageXOffset, imageYOffset, can.width * scale, can.height * scale);
 		
 				if(draggedIndex != "0" && droppedItem)
 				{
@@ -158,6 +162,26 @@
 				droppedItem = true;
 				
 			}
+			
+			function readURL(input) 
+			{
+				if (input.files && input.files[0]) 
+				{
+					var reader = new FileReader();
+            
+					reader.onload = function (e)
+					{
+						$('#face').attr('src', e.target.result);
+					}
+            
+					reader.readAsDataURL(input.files[0]);
+				}
+			}
+			
+			$("#userFile").change(function(){
+				readURL(this);
+			});
+			
 		</script>
 	    
 	</body>
