@@ -1,33 +1,69 @@
 <!DOCTYPE html>
+
+<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+<style>
+
+.btn-file {
+    position: absolute;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+</style>
 {% load staticfiles %}
 <html>
 <body>
-	<div id='d1' style="position:absolute; top:0px; left:200px; z-index:1">
-		<button id="zoomin" type="button" onclick="zoomIn()">+</button>
-		<button id="zommout" type="button" onclick="zoomOut()">-</button>
-		<canvas id="canvas" draggable="true" width="350" height="430" style="border-style:solid;border-radius:10px">
+
+	<div id='d1' style="position:absolute; top:0px; left:60px; z-index:1">
+		<canvas id="canvas" draggable="true" width="400" height="350" style="border-style:solid;border-radius:10px">
 		</canvas>
 	</div>
-		
-	<div id='d2' style="position:absolute; top:330px; left:620px; z-index:1">
+	
+	<div>
+		<button id="zoomin" class="btn btn-default" type="button" onclick="zoomIn()" style="width:40px; height:40px">+</button>
+	</div>
+	<div>
+		<button id="zommout" class="btn btn-default"  type="button" onclick="zoomOut()" style="width:40px; height:40px">-</button>
+	</div>
+	
+	<form id="form1" runat="server">
+	</form>
+	<div style="position:absolute; top:380px; left:60px">
+	<span class="btn btn-default btn-file"> Browse Image <input type="file" id="userFile" accept="image/*">
+	</span>
+	</div>
+	
+	<div id='d2' style="position:absolute; top:330px; left:640px; z-index:1">
 		<img id="1" draggable="true" ondragstart="drag(event)" src={% static "images/1.png" %} width="100" height="100" style="border-style:solid">
 	</div>
-	<div id='d3' style="position:absolute; top:220px; left:620px; z-index:1">
+	<div id='d3' style="position:absolute; top:220px; left:640px; z-index:1">
 		<img id="2" draggable="true" ondragstart="drag(event)" src={% static "images/2.png" %} width="100" height="100" style="border-style:solid">
 	</div>
-	<div id='d4' style="position:absolute; top:110px; left:620px; z-index:1">
+	<div id='d4' style="position:absolute; top:110px; left:640px; z-index:1">
 		<img id="3" draggable="true" ondragstart="drag(event)" src={% static "images/3.png" %} width="100" height="100" style="border-style:solid">
 	</div>
-	<div id='d5' style="position:absolute; top:0px; left:620px; z-index:1">
+	<div id='d5' style="position:absolute; top:0px; left:640px; z-index:1">
 		<img id="4" draggable="true" ondragstart="drag(event)" src={% static "images/4.png" %} width="100" height="100" style="border-style:solid">
 
 	</div>
-	
-		
-		
 
 	<img id="face" src={% static "images/baldguy.png" %} draggable="false" style="visibility:hidden">
-
+	
 	<script>
 		var draggedIndex = "0";
 		var droppedItem = false;
@@ -49,7 +85,6 @@
 				can.addEventListener("drag", dragMain, false);
 				can.addEventListener("dragend", dragEnd, false);
 				can.addEventListener("mousemove", mouseMove, false);
-				can.addEventListener("wheel", wheelHandling, false);
 				var imgBack = document.getElementById("face");
 			}
 
@@ -60,8 +95,9 @@
 				var con = can.getContext("2d");
 				con.clearRect(0,0, can.width, can.height);
 				var imgFace = document.getElementById("face");
-				con.drawImage(imgFace, imageXOffset, imageYOffset, can.width * scale, can.height * scale);
-
+				var userFace = document.getElementById("userFile");
+				//con.drawImage(imgFace, imageXOffset, imageYOffset, can.width * scale, can.height * scale);
+		
 				if(draggedIndex != "0" && droppedItem)
 				{
 					var imgHair = document.getElementById(draggedIndex);
@@ -123,5 +159,6 @@
 				
 			}
 		</script>
+	    
 	</body>
 <html>
