@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <head>
+<link rel="stylesheet" type="text/css" href="mystyle.css">
 <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -8,12 +9,13 @@
 </head>
 
 <style>
-
-.btn-file {
+.btn-file 
+{
     position: absolute;
     overflow: hidden;
 }
-.btn-file input[type=file] {
+.btn-file input[type=file] 
+{
     position: absolute;
     top: 0;
     right: 0;
@@ -28,47 +30,145 @@
     cursor: inherit;
     display: block;
 }
+#canvasArea
+{
+	position: absolute;
+	top: 0px;
+	left: 60px;
+	z-index: 1;
+}
+#canvas
+{
+	border-style: outset;
+	border-radius: 10px;
+}
+#zoomout, #zoomin
+{
+	width:40px;
+	height:40px;
+}
+#zoomInArea
+{
+	position: absolute;
+	top: 0px;
+}
+#zoomOutArea
+{
+	position: absolute;
+	top: 45px;
+}
+#refreshButton
+{
+	position: absolute;
+	left: 0px;
+	top: 90px;
+}
+#browseArea
+{
+	position:absolute;
+	top:380px;
+	left:60px;
+}
+#postArea
+{
+	position: absolute;
+	top:380px;
+	left: 195px;
+}
+#postButton
+{
+	font-size: 20px
+}
+#downloadArea
+{
+	position:absolute;
+	top:380px;
+	left:380px;
+}
+#downloadImgLink
+{
+	text-decoration:none;
+	color: #000000;
+}
+#face
+{
+	visibility: hidden;
+}
+#hairStyles
+{
+	-webkit-columns: 2;
+	-moz-columns: 2;
+	list-style-type: none;
+	position: absolute;
+	left: 480px; 
+	top: 4px;
+}
+#hs1, #hs2, #hs3, #hs4
+{
+	list-style-position: inside;
+	margin: 0 0 3px 0;
+	border: 4px solid black;
+	border-radius: 10px;
+}
+
 </style>
+
 {% load staticfiles %}
 <html>
 <body>
 
-	<div id='d1' style="position:absolute; top:0px; left:60px; z-index:1">
-		<canvas id="canvas" draggable="true" width="400" height="350" style="border-style:solid;border-radius:10px">
-		</canvas>
+	<!-- The canvas element -->
+	<div id="canvasArea">
+		<canvas id="canvas" width="400" height="350" draggable="true"></canvas>
 	</div>
 	
-	<div>
-		<button id="zoomin" class="btn btn-default" type="button" onclick="zoomIn()" style="width:40px; height:40px">+</button>
-	</div>
-	<div>
-		<button id="zommout" class="btn btn-default"  type="button" onclick="zoomOut()" style="width:40px; height:40px">-</button>
-	</div>
-	
-	<form id="form1" runat="server">
-	</form>
-	<div style="position:absolute; top:380px; left:60px">
-	<span class="btn btn-default btn-file"> Browse Image <input type="file" id="userFile" accept="image/*">
-	</span>
-	</div>
-	
-	<div id='d2' style="position:absolute; top:330px; left:640px; z-index:1">
-		<img id="1" draggable="true" ondragstart="drag(event)" src={% static "images/1.png" %} width="100" height="100" style="border-style:solid">
-	</div>
-	<div id='d3' style="position:absolute; top:220px; left:640px; z-index:1">
-		<img id="2" draggable="true" ondragstart="drag(event)" src={% static "images/2.png" %} width="100" height="100" style="border-style:solid">
-	</div>
-	<div id='d4' style="position:absolute; top:110px; left:640px; z-index:1">
-		<img id="3" draggable="true" ondragstart="drag(event)" src={% static "images/3.png" %} width="100" height="100" style="border-style:solid">
-	</div>
-	<div id='d5' style="position:absolute; top:0px; left:640px; z-index:1">
-		<img id="4" draggable="true" ondragstart="drag(event)" src={% static "images/4.png" %} width="100" height="100" style="border-style:solid">
-
+	<!-- Zoom in / Zoom out buttons -->
+	<div id="zoomInArea">
+		<button id="zoomin" class="btn btn-default" type="button" onclick="zoomIn()">+</button>
 	</div>
 
-	<img id="face" src={% static "images/baldguy.png" %} draggable="false" style="visibility:hidden">
+	<div id="zoomOutArea">
+		<button id="zoomout" class="btn btn-default"  type="button" onclick="zoomOut()">-</button>
+	</div>
+	
+	<!-- Refresh Button -->	
+	<button id="refreshButton" type="button" onclick="resetImage()" class="btn btn-default" aria-label="Left Align">
+		<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+	</button>
+
+	<!-- Upload button -->
+	<div id="browseArea">
+		<span class="btn btn-default btn-file"> Upload Image <input type="file" id="userFile" accept="image/*">
+		</span>
+	</div>
+	
+	<!-- Post Button -->
+	<div id="postArea">
+		<button id="postButton" class="btn btn-primary">Share Creation!</button>
+	</div>
+
+	<!-- Download button -->
+	<div id="downloadArea">
+		<span class="btn btn-default btn-file">
+			<a id="downloadImgLink" onclick="$('#downloadImgLink').attr('href', canvas.toDataURL());" download="MyImage.png" href="#" target="_blank">Download</a>
+		</span>
+	</div>
+
+	<!--- Hairstyle images temporary -->
+	<ul id="hairStyles">
+	<li><img id="hs1" draggable="true" ondragstart="drag(event)" src={% static "images/1.png" %} width="80" height="86"></li>
+	<li><img id="hs2" draggable="true" ondragstart="drag(event)" src={% static "images/2.png" %} width="80" height="86"></li>
+
+	<li><img id="hs3" draggable="true" ondragstart="drag(event)" src={% static "images/3.png" %} width="80" height="86"></li>
+
+	<li><img id="hs4" draggable="true" ondragstart="drag(event)" src={% static "images/4.png" %} width="80" height="86"></li>
+	</ul>
+
+	<!-- Invisible image to feed the canvas -->
+	<img id="face" src={% static "images/baldguy.png" %} draggable="false">
 	
 	
+
 	<script>
 		var draggedIndex = "0";
 		var droppedItem = false;
@@ -81,108 +181,114 @@
 		var currentY = imageYOffset;
 		var scale = 1;
 
-			window.onload = function()
+		window.onload = function()
+		{
+			var can = document.getElementById("canvas");
+			can.addEventListener("dragstart", dragStart, false);
+			can.addEventListener("dragover", allowDrop, false);
+			can.addEventListener("drop", drop, false)
+			can.addEventListener("drag", dragMain, false);
+			can.addEventListener("dragend", dragEnd, false);
+			can.addEventListener("mousemove", mouseMove, false);
+		}
+
+
+		setInterval(function()
+		{
+			var can = document.getElementById("canvas");
+			var con = can.getContext("2d");
+			con.clearRect(0,0, can.width, can.height);
+			var imgFace = document.getElementById("face");
+			
+			con.drawImage(imgFace, imageXOffset, imageYOffset, can.width * scale, can.height * scale);
+	
+			if(draggedIndex != "0" && droppedItem)
 			{
-				var element = document.getElementById("userFile");
-				var can = document.getElementById("canvas");
-				can.addEventListener("dragstart", dragStart, false);
-				can.addEventListener("dragover", allowDrop, false);
-				can.addEventListener("drop", drop, false)
-				can.addEventListener("drag", dragMain, false);
-				can.addEventListener("dragend", dragEnd, false);
-				can.addEventListener("mousemove", mouseMove, false);
+				var imgHair = document.getElementById(draggedIndex);
+				con.drawImage(imgHair, 0, 0, can.width, can.height);
 			}
 
-			setInterval(function()
+		}, 1);
+
+		function dragStart(event)
+		{
+			dragging = true;
+			dragStartX = event.pageX;
+			dragStartY = event.pageY;
+		}
+
+		function dragMain(event)
+		{
+			if(dragging)
 			{
-				var can = document.getElementById("canvas");
-				var con = can.getContext("2d");
-				con.clearRect(0,0, can.width, can.height);
-				var imgFace = document.getElementById("face");
-				
-				con.drawImage(imgFace, imageXOffset, imageYOffset, can.width * scale, can.height * scale);
+				imageXOffset = event.pageX - dragStartX;
+				imageYOffset = event.pageY - dragStartY;
+			}
+		}
+
+		function zoomIn()
+		{
+			scale += 0.1;
+			if(scale > 2) scale = 2;
+		}
+
+		function zoomOut()
+		{
+			scale -= 0.1;
+			if(scale < 0) scale = 0;
+		}
+
+		function dragEnd(event)
+		{
+			dragging = false;
+		}
+	
+		function allowDrop(ev)
+		{
+			ev.preventDefault();
+		}
+
+		function drag(ev)
+		{
+			draggedIndex = ev.target.id;
+			imageXOffset = 0;
+			imageYOffset = 0;
+			droppedItem = false;
+		}
+
+		function drop(ev)
+		{
+			ev.preventDefault();
+			droppedItem = true;
+			
+		}
 		
-				if(draggedIndex != "0" && droppedItem)
+		function resetImage()
+		{
+			imageXOffset = 0;
+			imageYOffset = 0;
+		}
+
+		function readURL(input) 
+		{
+			if (input.files && input.files[0]) 
+			{
+				var reader = new FileReader();
+        
+				reader.onload = function (e)
 				{
-					var imgHair = document.getElementById(draggedIndex);
-					con.drawImage(imgHair, 0, 0, can.width, can.height);
+					$('#face').attr('src', e.target.result);
 				}
-
-			}, 1);
-
-			function dragStart(event)
-			{
-				dragging = true;
-				dragStartX = event.pageX;
-				dragStartY = event.pageY;
+        
+				reader.readAsDataURL(input.files[0]);
 			}
-
-			function dragMain(event)
-			{
-				if(dragging)
-				{
-					imageXOffset = event.pageX - dragStartX;
-					imageYOffset = event.pageY - dragStartY;
-				}
-			}
-
-			function zoomIn()
-			{
-				scale += 0.1;
-				if(scale > 2) scale = 2;
-			}
-
-			function zoomOut()
-			{
-				scale -= 0.1;
-				if(scale < 0) scale = 0;
-			}
-
-			function dragEnd(event)
-			{
-				dragging = false;
-			}
+		}
 		
-			function allowDrop(ev)
-			{
-				ev.preventDefault();
-			}
-
-			function drag(ev)
-			{
-				draggedIndex = ev.target.id;
-				imageXOffset = 0;
-				imageYOffset = 0;
-				droppedItem = false;
-			}
-
-			function drop(ev)
-			{
-				ev.preventDefault();
-				droppedItem = true;
-				
-			}
+		$("#userFile").change(function(){
+			readURL(this);
+		});
 			
-			function readURL(input) 
-			{
-				if (input.files && input.files[0]) 
-				{
-					var reader = new FileReader();
-            
-					reader.onload = function (e)
-					{
-						$('#face').attr('src', e.target.result);
-					}
-            
-					reader.readAsDataURL(input.files[0]);
-				}
-			}
-			
-			$("#userFile").change(function(){
-				readURL(this);
-			});
-			
-		</script>
+	</script>
 	    
-	</body>
+</body>
 <html>
