@@ -15,6 +15,7 @@ class Creation(models.Model):
     user = models.ForeignKey(User)
     imageID = models.CharField(max_length=5, unique=True)
     picture = models.ImageField(upload_to='pictures', blank=True)
+    likes = models.IntegerField(default=0)
     def __unicode__(self):
         return self.imageID
 
