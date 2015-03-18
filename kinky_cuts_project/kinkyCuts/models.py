@@ -13,17 +13,17 @@ class UserProfile(models.Model):
 
 class Creation(models.Model):
     user = models.ForeignKey(User)
-    imageID = models.IntegerField(default=0, unique=True)
-    favourites = models.ImageField(upload_to='pictures', blank=True)
+    imageID = models.CharField(max_length=5, unique=True)
+    picture = models.ImageField(upload_to='pictures', blank=True)
     def __unicode__(self):
-        return self.user.username
+        return self.imageID
 
 
 class Rating(models.Model):
      #whats needed
     user = models.ForeignKey(User)
-    Creation = models.ForeignKey(Creation)
-    
+    imageID = models.ForeignKey(Creation)
+
     def __unicode__(self):      #For Python 2, use __str__ on Python 3
         return self.user.username
 
