@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+
 
 # Create your models here.
 
@@ -16,6 +18,7 @@ class Creation(models.Model):
     imageID = models.CharField(max_length=5, unique=True)
     picture = models.ImageField(upload_to='pictures', blank=True)
     likes = models.IntegerField(default=0)
+    creationDate = models.DateTimeField("Date Published", default=timezone.now())
     def __unicode__(self):
         return self.imageID
 
