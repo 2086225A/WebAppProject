@@ -59,7 +59,12 @@
 	    	<p class="navbar-text"> </p>
 		<p class="navbar-text"> </p>
 		<p class="navbar-text"> </p>
-	   <li><a href="{% url 'sign' %}">Sign In</a></li>
+		{% if user.is_authenticated %}
+			<li><a href="{% url 'auth_logout' %}?next=/kinkycuts/">Logout</a></li>
+		{% else %}
+			<li><a href="{% url 'auth_login' %}">Sign In</a></li>
+			<li><a href="{% url 'registration_register' %}">Sign Up</a></li>
+		{% endif %}
 	</ul>
 
     <div class="container-fluid">
