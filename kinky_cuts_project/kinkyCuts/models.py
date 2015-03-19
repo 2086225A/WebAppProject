@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from datetime import datetime, date
 
 
 # Create your models here.
@@ -16,9 +17,10 @@ class UserProfile(models.Model):
 class Creation(models.Model):
     user = models.ForeignKey(User)
     imageID = models.CharField(max_length=5, unique=True)
-    picture = models.ImageField(upload_to='pictures', blank=True)
+    picture = models.ImageField(upload_to='images', blank=True)
     likes = models.IntegerField(default=0)
-    creationDate = models.DateTimeField("Date Published", default=timezone.now())
+    creationDate = models.DateTimeField("Date Published", default=datetime.now())
+
     def __unicode__(self):
         return self.imageID
 
