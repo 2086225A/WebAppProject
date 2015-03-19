@@ -28,9 +28,6 @@
 }
 #canvas
 {
-	position:absolute;
-	top: 0%;
-	left: 190px;
 	border-style: outset;
 	border-radius: 10px;
 }
@@ -42,32 +39,30 @@
 #zoomInArea
 {
 	position: absolute;
-	left: 170px;
 	top: 0px;
 }
 #zoomOutArea
 {
 	position: absolute;
-	left: 170px;
 	top: 45px;
 }
 #refreshButton
 {
 	position: absolute;
-	left: 170px;
+	left: 0px;
 	top: 90px;
 }
 #browseArea
 {
 	position:absolute;
-	top:450px;
-	left:200px;
+	top:380px;
+	left:60px;
 }
 #postArea
 {
 	position: absolute;
-	top:450px;
-	left: 335px;
+	top:380px;
+	left: 195px;
 }
 #postButton
 {
@@ -76,8 +71,8 @@
 #downloadArea
 {
 	position:absolute;
-	top:450px;
-	left:520px;
+	top:380px;
+	left:380px;
 }
 #downloadImgLink
 {
@@ -94,13 +89,13 @@
 	-moz-columns: 2;
 	list-style-type: none;
 	position: absolute;
-	left: 600px; 
+	left: 480px; 
 	top: 4px;
 }
-#hs1, #hs2, #hs3, #hs4, #hs5, #hs6, #hs7, #hs8
+#hs1, #hs2, #hs3, #hs4
 {
 	list-style-position: inside;
 	margin: 0 0 3px 0;
-	border: 2px solid #999;
+	border: 4px solid black;
 	border-radius: 10px;
 }
