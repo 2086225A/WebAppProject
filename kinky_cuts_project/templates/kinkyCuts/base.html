@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% load kinkycuts_extras %}
+{% load staticfiles %}
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -23,9 +25,9 @@
 
     <div id = "nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/kinkycuts/">Kinky Cuts</a>
-      <ul class="nav navbar-nav navbar-left">
+        <div class="navbar-header" align = "center">
+          <a class="navbar-brand" href="/kinkycuts/"><img src={% static "images/Kinky Cuts Logo.PNG" %} height="60" width="60"></a>
+      <ul class="nav navbar-nav navbar-right">
 	<p class="navbar-text"> </p>
 	<p class="navbar-text"> </p>
 	<p class="navbar-text"> </p>
@@ -44,29 +46,26 @@
 	<li><a href="{% url 'explore' %}">Explore</a></li>
 	<li><a href="{% url 'about' %}">About</a></li>
 	<li><a href="{% url 'help' %}">Help</a></li>
+	<p class="navbar-text"> </p>
+	<p class="navbar-text"> </p>
+	<p class="navbar-text"> </p>
+	<p class="navbar-text"> </p>
+	<p class="navbar-text"> </p>
+	<p class="navbar-text"> </p>
+	{% if user.is_authenticated %}
+		<li><a href="{% url 'auth_logout' %}?next=/kinkycuts/">Logout</a></li>
+	{% else %}
+		<li><a href="{% url 'auth_login' %}">Sign In</a></li>
+		<li><a href="{% url 'registration_register' %}">Sign Up</a></li>
+	{% endif %}
       </ul>
-	<ul class="nav navbar-nav navbar-right">
-	    <p class="navbar-text"> </p>
-		<p class="navbar-text"> </p>
-		<p class="navbar-text"> </p>
-		<p class="navbar-text"> </p>
-		<p class="navbar-text"> </p>
-	    <p class="navbar-text"> </p>
-		<p class="navbar-text"> </p>
-		<p class="navbar-text"> </p>
-		{% if user.is_authenticated %}
-			<li><a href="{% url 'auth_logout' %}?next=/kinkycuts/">Logout</a></li>
-		{% else %}
-			<li><a href="{% url 'auth_login' %}">Sign In</a></li>
-			<li><a href="{% url 'registration_register' %}">Sign Up</a></li>
-		{% endif %}
-	</ul>
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar" style ="width:250px; height:900px; position:absolute; top:70px">
-				<h3> Top 5 Creations <h3>
-                {% block side_block %}
+        <div class="col-sm-3 col-md-2 sidebar" style ="width:250px; height:900px; position:absolute; top:70px" align="center">
+				<h4> Top 3 Creations <h4>
+                		{% block side_block %}
+				{% get_creation_list %}
 				{% endblock %}
 
         </div>

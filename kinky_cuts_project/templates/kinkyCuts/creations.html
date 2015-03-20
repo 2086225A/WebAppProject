@@ -1,0 +1,15 @@
+{% load staticfiles %}
+{%if creations %}
+	<ul class="nav nav-sidebar">
+	{% for creation in creations %}
+		<li>{{ creation.user }}</li>
+		<li><img src="/media/media/{{ creation.picture }}"height="100" width="100" style="border: 4px solid #999"></li>
+		<li>Likes: {{ creation.likes }}</li>
+		<br></br>
+	{% endfor %}
+
+{% else %}
+	<li><strong>There are no creations present.</strong></li>
+	</ul>
+{% endif %}
+

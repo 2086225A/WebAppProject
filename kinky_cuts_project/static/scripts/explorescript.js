@@ -1,10 +1,10 @@
-function changeImage() {
-    var image = document.getElementById('like');
-    if (image.src.match("index1.png")) {
-        image.src = "index.png";
+function changeImage(imageid) {
+    var image = document.getElementById(imageid);
+    if (image.src.match("/static/images/notliked.png")) {
+        image.src = "/static/images/liked.png";
 
     } else {
-        image.src = "index1.png";
+        image.src = "/static/images/notliked.png";
 
     }
 }

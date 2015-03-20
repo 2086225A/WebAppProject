@@ -3,16 +3,20 @@
 
 <head>
 <title>{% block title %}My Pictures{% endblock %}</title>
-<link rel="stylesheet" type="text/css" href={% static "styling/explorestyle.css" %}>
 </head>
 {% block body_block %}
-<div class="img">
-    {% for pic in pictures %}
-                <a target="_blank" href={% static "images/klematis_big.jpg" %}><img src={% static "images/klematis_big.jpg" %} alt="Klematis" width="180"
-                                                                height="120"></a>
+<div style="position:absolute; left:100px; top:80px">
+        <!--{# for pic in pictures #}-->
+<link rel="stylesheet" type="text/css" href="{% static "styling/explorestyle.css" %}">
+{% for pic in pictures %}
+            <div class="img">
+                <a target="_blank" href="/media/media/{{ pic.picture }}"><img src="/media/media/{{ pic.picture }}" alt="Klematis" width="150"
+                                                                height="160"></a>
                 <div class="desc">
-                    {% likes %}
+                    Likes: {{ pic.likes }}
                 </div>
-    {%endfor%}
             </div>
-{endblock}
+        {% endfor %}
+
+</div>
+{% endblock %}

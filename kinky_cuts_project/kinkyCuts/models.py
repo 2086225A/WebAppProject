@@ -17,7 +17,7 @@ class UserProfile(models.Model):
 class Creation(models.Model):
     user = models.ForeignKey(User)
     imageID = models.CharField(max_length=5, unique=True)
-    picture = models.ImageField(upload_to='images', blank=True)
+    picture = models.ImageField(upload_to='media', blank=True)
     likes = models.IntegerField(default=0)
     creationDate = models.DateTimeField("Date Published", default=datetime.now())
 
