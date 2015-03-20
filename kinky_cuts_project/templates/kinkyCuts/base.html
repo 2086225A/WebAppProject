@@ -43,20 +43,15 @@
 	<li><a href="{% url 'mypictures' %}">My Pictures</a></li>
 	<li><a href="{% url 'explore' %}">Explore</a></li>
 	<li><a href="{% url 'about' %}">About</a></li>
-	<li><a href="{% url 'help' %}">Help</a></li>>
+	<li><a href="{% url 'help' %}">Help</a></li>
       </ul>
 	<ul class="nav navbar-nav navbar-right">
-	    	<p class="navbar-text"> </p>
+	    <p class="navbar-text"> </p>
 		<p class="navbar-text"> </p>
 		<p class="navbar-text"> </p>
 		<p class="navbar-text"> </p>
 		<p class="navbar-text"> </p>
-	    	<p class="navbar-text"> </p>
-		<p class="navbar-text"> </p>
-		<p class="navbar-text"> </p>
-		<p class="navbar-text"> </p>
-		<p class="navbar-text"> </p>
-	    	<p class="navbar-text"> </p>
+	    <p class="navbar-text"> </p>
 		<p class="navbar-text"> </p>
 		<p class="navbar-text"> </p>
 		{% if user.is_authenticated %}
@@ -69,8 +64,10 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-                {% block side_block %}{% endblock %}
+        <div class="col-sm-3 col-md-2 sidebar" style ="width:250px; height:900px; position:absolute; top:70px">
+				<h3> Top 5 Creations <h3>
+                {% block side_block %}
+				{% endblock %}
 
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

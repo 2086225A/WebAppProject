@@ -4,14 +4,14 @@
 <head>
 <title>{% block title %}Explore{% endblock %}</title>
 <link rel="stylesheet" type="text/css" href={% static "styling/explorestyle.css" %}>
-<script type="text/javascript" src={% static scripts/explorescript.js %}> </script>
+<script type="text/javascript" src={% static "scripts/explorescript.js" %}> </script>
 </head>
 {% block body_block %}
 <div class="img">
-        {% for pic in pictures %}
-      <a target="_blank" href={% static images/klematis_big.jpg %}><img src={% static images/klematis_big.jpg %} alt="Klematis" width="180"
+       {% for pic in pictures %}
+       <a target="_blank" href="{% static "images/klematis_big.jpg" %}"><img src="{% static "images/klematis_big.jpg" %}" alt="Klematis" width="180"
                                                                 height="120"></a>
-             <div class="desc"><img class="like" id="like" onclick="changeImage()" src={% static images/index1.jpg %}>{{totalLikes}}</div>
-	{%endfor%}
+       <div class="desc"><img class="like" id="like" onclick="changeImage()" src={% static "images/index1.jpg" %}>{{totalLikes}}</div>
+	   {%endfor%}
 </div>
-{endblock}
+{% endblock %}

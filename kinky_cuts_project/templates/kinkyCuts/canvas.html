@@ -30,18 +30,24 @@
 	<button id="refreshButton" type="button" class="btn btn-default" aria-label="Left Align">
 		<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
 	</button>
-
+	
 	<!-- Upload button -->
 	<div id="browseArea">
 		<span class="btn btn-default btn-file"> Upload Image <input type="file" id="userFile" accept="image/*">
 		</span>
 	</div>
 	
+	{% if user.is_authenticated %}
 	<!-- Post Button -->
 	<div id="postArea">
 		<button id="postButton" class="btn btn-primary">Share Creation!</button>
 	</div>
-
+	{% else %}
+	<div id="postArea">
+		<button id="postButton" class="btn btn-primary" onclick="location.href='{% url "auth_login" %}';">Share Creation!</button>
+	</div>
+	{% endif %}
+	
 	<!-- Download button -->
 	<div id="downloadArea">
 		<span class="btn btn-default btn-file">

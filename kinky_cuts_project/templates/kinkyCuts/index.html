@@ -2,14 +2,24 @@
 <!DOCTYPE html>
 <html>
 {% load staticfiles %}
-
 {% block title %}HomePage{% endblock %}
 {% block body_block %}
 
-	<div class="embed-responsive embed-responsive-16by9">
+	<div class="embed-responsive embed-responsive-16by9" style="width:2000px; height:900px; position:absolute; left:0px">
   		<iframe class="embed-responsive-item" src="canvas" ></iframe>
 	</div>
-
+	
+	{% if user.is_authenticated %}
+	<!-- Post Button -->
+	<div id="postArea" style="position:absolute; left: 335px; top: 470px">
+		<button id="postButton" style="font-size: 20px" class="btn btn-primary">Share Creation!</button>
+	</div>
+	{% else %}
+	<div id="postArea" style="position:absolute; left: 335px; top: 470px">
+		<button id="postButton" style="font-size: 20px" class="btn btn-primary" onclick="location.href='/accounts/login/';">Share Creation!</button>
+	</div>
+	{% endif %}
+	
 {% endblock %}
 	
 </html>
