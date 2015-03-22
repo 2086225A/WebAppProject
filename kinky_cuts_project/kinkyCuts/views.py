@@ -3,10 +3,27 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from kinkyCuts.models import User, Creation, Rating
 from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
+
+@csrf_exempt
 def index(request):
+    if request.method == 'POST':
+        username = request.POST['name']
+        user = User.objects.get(username=username)
+        data = request.POST['imageData']
+        allCreations = Creation.objects.all()
+        imageid = len(allCreations) + 1
+        newC = Creation.objects.create(user=user, imageID=imageid, picture=data)
+        newC.save()
+
+    
     context_dict = {}
+    if request.user.is_authenticated():
+        context_dict['username'] = request.user.get_username()
+
     return render(request, 'kinkyCuts/index.html', context_dict)
 
 
@@ -53,8 +70,3 @@ def helpage(request):
 def sign(request):
     context_dict = {}
     return render(request, 'kinkyCuts/sign.html', context_dict)
-
-
-def canvas(request):
-    context_dict = {}
-    return render(request, 'kinkyCuts/canvas.html', context_dict)
