@@ -1,6 +1,6 @@
 {% extends 'kinkyCuts/base.html' %}
 {% load staticfiles %}
-
+{% load kinkycuts_extras %}
 <head>
 <title>{% block title %}Explore{% endblock %}</title>
 </head>
@@ -10,7 +10,7 @@
 
 {% for pic in pictures %}
 <div class="img">
-      <a target="_blank" href="/media/media/{{ pic.picture }}"><img src="/media/media/{{ pic.picture }}" alt="Klematis" width="150" height="160"></a>
+      <a target="_blank" href={% static "/media/media/"|addstr:pic.picture %}><img src={% static "/media/media/"|addstr:pic.picture %} alt="Klematis" width="150" height="160"></a>
       <div class="desc">
       <img class="like" id="{{pic}}" onclick="changeImage(id)" src={% static "images/notliked.png" %}>Likes: {{pic.likes}}</div>
       </div>
