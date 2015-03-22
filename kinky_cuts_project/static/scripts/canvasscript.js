@@ -95,8 +95,9 @@ function readURL(input)
 function postCreation(path, params, method)
 {
 	var canvas = document.getElementById("canvas");	
-	
-	params['imageData'] = canvas.toDataURL();
+	var context = canvas.getContext('2d');
+
+	params['imageData'] = context.getImageData(0, 0, canvas.width, canvas.height);
 
     var method = method || "post"; // Set method to post by default if not specified.
 

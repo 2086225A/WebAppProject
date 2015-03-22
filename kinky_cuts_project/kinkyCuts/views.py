@@ -16,7 +16,7 @@ def index(request):
         data = request.POST['imageData']
         allCreations = Creation.objects.all()
         imageid = len(allCreations) + 1
-        newC = Creation.objects.create(user=user, imageID=imageid, picture=data)
+        newC = Creation.objects.create(user=user, imageID=imageid, picture="1.png")
         newC.save()
 
     
