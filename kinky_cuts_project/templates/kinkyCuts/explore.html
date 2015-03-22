@@ -9,10 +9,21 @@
 <script type="text/javascript" src="{% static "scripts/explorescript.js" %}"> </script>
 
 {% for pic in pictures %}
-<div class="img">
-      <a target="_blank" href={% static "/media/media/"|addstr:pic.picture %}><img src={% static "/media/media/"|addstr:pic.picture %} alt="Klematis" width="150" height="160"></a>
+    <div class="img">
+      <a target="_blank" href={% static "/media/media/"|addstr:pic.picture %}>
+        <img src={% static "/media/media/"|addstr:pic.picture %} alt="Klematis" width="150" height="160"></a>
       <div class="desc">
-      <img class="like" id="{{pic}}" onclick="changeImage(id)" src={% static "images/notliked.png" %}>Likes: {{pic.likes}}</div>
-      </div>
+        {% if user.is_authenticated %}
+            {% if pic.user.username != user.username %}
+                <img class="like" id="{{pic.imageID}}" onclick="changeImage(id)" src={% static "images/notliked.png" %}>
+                Likes: {{pic.likes}}
+            {% else %}
+                Likes: {{pic.likes}}
+            {% endif %}
+        {% else %}
+            Likes: {{pic.likes}}
+        {% endif %}
+</div>
+    </div>
 {% endfor %}
 {% endblock %}
