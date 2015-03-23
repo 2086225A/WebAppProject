@@ -8,37 +8,36 @@
 <link rel="stylesheet" type="text/css" href="{% static "styling/explorestyle.css" %}">
 <script type="text/javascript" src="{% static "scripts/explorescript.js" %}"> </script>
 
-{% for pic, boolean in pictures.items %}
-         <div class="img">
+
+{% for pic in pictures %}
+    <div class="img">
             <a target="_blank" href={% static "/media/media/"|addstr:pic.picture %}>
             <img src={% static "/media/media/"|addstr:pic.picture %} alt="Klematis" width="150" height="160"></a>
-        {% if user.is_authenticated %}
+    {% if user.is_authenticated %}
             {% if pic.user != user %}
-                {% for creation in ratings %}
-                    {% if creation == pic %}
-                        <div class="desc">
-                            <img class="like" id="{{pic.imageID}}" onclick="changeImage(id)" src={% static "images/liked.png" %}>
-                            Likes: {{ pic.likes }}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-                {% if boolean == "false" %}
-                    <div class="desc">
+                {% if pic in ratings %}
+                    <div class="desc"></br>
+                        <img class="like" id="{{pic.imageID}}" onclick="changeImage(id)" src={% static "images/liked.png" %}>
+                        <strong>Likes: {{ pic.likes }}</strong>
+                    </div>
+                {% else %}
+                     <div class="desc"></br>
                         <img class="like" id="{{pic.imageID}}" onclick="changeImage(id)" src={% static "images/notliked.png" %}>
-                        Likes: {{ pic.likes }}
+                        <strong>Likes: {{ pic.likes }}</strong>
                     </div>
                 {% endif %}
             {% else %}
-                <div class="desc">
-                    Likes: {{ pic.likes }}
+                <div class="desc"></br>
+                    <strong>Likes: {{ pic.likes }}</strong></br>
+                    <p style="font-size: 10px;">Created by you!</p>
                 </div>
             {% endif %}
-        {% else %}
-            <div class="desc">
-                Likes: {{ pic.likes }}
-            </div>
-        {% endif %}
-        </div>
+    {% else %}
+         <div class="desc"></br>
+            <strong>Likes: {{ pic.likes }}</strong>
+         </div>
+    {% endif %}
+     </div>
 {% endfor %}
 
 {% endblock %}

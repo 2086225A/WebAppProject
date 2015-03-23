@@ -54,21 +54,7 @@ def explore(request):
     #all picture objects in a list
     pictures = Creation.objects.all()
 
-    # picturesDictionary which has picture object as key, and boolean which identifies whether user has liked/not liked a specific picture
-    picturesDict = {}
-    for pic in pictures:
-        boolean = "false"
-        try:
-            if pic.user != request.user:
-                for creation in users_ratingList:
-                    if creation == pic:
-                        boolean = "true"
-                picturesDict[pic] = boolean
-        except:
-            picturesDict[pic] = "null"
-
-
-    context_dict = {'pictures':picturesDict, 'ratings':users_ratingList}
+    context_dict = {'pictures':pictures, 'ratings':users_ratingList}
     return render(request, 'kinkyCuts/explore.html', context_dict)
 
 @login_required
