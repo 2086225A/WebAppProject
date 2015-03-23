@@ -8,22 +8,37 @@
 <link rel="stylesheet" type="text/css" href="{% static "styling/explorestyle.css" %}">
 <script type="text/javascript" src="{% static "scripts/explorescript.js" %}"> </script>
 
-{% for pic in pictures %}
-    <div class="img">
-      <a target="_blank" href={% static "/media/media/"|addstr:pic.picture %}>
-        <img src={% static "/media/media/"|addstr:pic.picture %} alt="Klematis" width="150" height="160"></a>
-      <div class="desc">
+{% for pic, boolean in pictures.items %}
+         <div class="img">
+            <a target="_blank" href={% static "/media/media/"|addstr:pic.picture %}>
+            <img src={% static "/media/media/"|addstr:pic.picture %} alt="Klematis" width="150" height="160"></a>
         {% if user.is_authenticated %}
-            {% if pic.user.username != user.username %}
-                <img class="like" id="{{pic.imageID}}" onclick="changeImage(id)" src={% static "images/notliked.png" %}>
-                Likes: {{pic.likes}}
+            {% if pic.user != user %}
+                {% for creation in ratings %}
+                    {% if creation == pic %}
+                        <div class="desc">
+                            <img class="like" id="{{pic.imageID}}" onclick="changeImage(id)" src={% static "images/liked.png" %}>
+                            Likes: {{ pic.likes }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% if boolean == "false" %}
+                    <div class="desc">
+                        <img class="like" id="{{pic.imageID}}" onclick="changeImage(id)" src={% static "images/notliked.png" %}>
+                        Likes: {{ pic.likes }}
+                    </div>
+                {% endif %}
             {% else %}
-                Likes: {{pic.likes}}
+                <div class="desc">
+                    Likes: {{ pic.likes }}
+                </div>
             {% endif %}
         {% else %}
-            Likes: {{pic.likes}}
+            <div class="desc">
+                Likes: {{ pic.likes }}
+            </div>
         {% endif %}
-</div>
-    </div>
+        </div>
 {% endfor %}
+
 {% endblock %}
