@@ -28,6 +28,7 @@ def populate():
     alex = User.objects.get(username="alex")
     nayhall = User.objects.get(username="nayhall")
 
+
     #scenario 1
     c1 = addcreation(nayhall, "2", "2.png") #nayhall creates picture
     sayyadlikes = addrating(sayyad, c1[0]) #sayyad likes nayhalls pic
