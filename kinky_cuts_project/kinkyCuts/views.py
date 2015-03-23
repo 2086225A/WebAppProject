@@ -117,9 +117,17 @@ def myaccount(request):
     return render(request, 'kinkycuts/myaccount.html', context_dict)
 
 def editProfile(request):
-    return render(request, 'kinkycuts/edit_profile.html')
-
-
-def helpage(request):
     context_dict = {}
-    return render(request, 'kinkyCuts/help.html', context_dict)
+    if request.method == 'POST':
+        user_profile_form = UserProfileForm(data=request.POST, instance=request.user.userprofile)
+        if user_profile_form.is_valid():
+            if request.user.is_authenticated():
+                user_profile = UserProfile.objects.get(user_id=request.user.id)
+                if 'profilepic' in request.FILES:
+                    user_profile.profilepic = request.FILES['profilepic']
+                user_profile.save()
+
+                return redirect('/kinkycuts/myaccount/')
+    else:
+        user_profile_form = UserProfileForm(instance=request.user.userprofile)
+    return render(request, 'kinkyCuts/edit_profile.html', {'profile_form': user_profile_form})

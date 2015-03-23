@@ -8,5 +8,4 @@ urlpatterns = patterns('',
     url(r'^mypictures/$', views.mypictures, name='mypictures'),
     url(r'^myaccount/$', views.myaccount, name='myaccount'),
     url(r'^edit_profile/$', views.editProfile, name='edit_profile'),
-    url(r'^help/$', views.helpage, name='help'),
     )
