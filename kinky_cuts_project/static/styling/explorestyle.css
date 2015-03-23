@@ -1,7 +1,6 @@
 div.img {
     margin: 10px;
     padding: 10px;
-    border: 1px solid #0000ff;
     height: 240px;
     width: auto;
     float: left;
@@ -14,9 +13,6 @@ div.img img {
     border: 1px solid #ffffff;
 }
 
-div.img a:hover img {
-    border: 1px solid #0000ff;
-}
 
 div.desc {
     text-align: center;
