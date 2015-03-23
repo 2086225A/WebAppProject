@@ -30,18 +30,28 @@
 		
 		<!-- Upload button -->
 		<div id="browseArea">
-			<span class="btn btn-default btn-file"> Upload Image <input type="file" id="userFile" accept="image/*">
+			<span class="btn btn-default btn-file">Load Image<input type="file" id="userFile" accept="image/*">
 			</span>
 		</div>
 		
 		<!-- Post Button -->
 		{% if user.is_authenticated %}
+		<!--
 			<div id="postArea">
-				<button id="postButton" style="font-size: 20px" class="btn btn-primary" onclick="postCreation('/kinkycuts/', {name : '{{ username }}'});">Share Creation!</button>
+				<button id="postButton" style="font-size: 20px" class="btn btn-primary" onclick="postCreation();">Share Creation!</button>
+			</div> -->
+			
+			<div id="postArea">
+			<form id="creationForm" action="{% url 'index' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <span id="creationFormProperties" class="btn btn-primary btn-file" > Share Creations
+                    <input id="creationUpload" type="file" class="" name="image">
+                </span>
+            </form>
 			</div>
+			
 		{% else %}
 			<div id="postArea">
-				<button id="postButton" style="font-size: 20px" class="btn btn-primary" onclick="location.href='/accounts/login/';">Share Creation!</button>
+				<button id="postButton" class="btn btn-primary" onclick="location.href='/accounts/login/';">Share Creation!</button>
 			</div>
 		{% endif %}
 		

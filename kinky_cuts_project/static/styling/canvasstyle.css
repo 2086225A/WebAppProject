@@ -61,13 +61,17 @@
 {
 	position:absolute;
 	top:450px;
-	left:200px;
+	left:210px;
 }
 #postArea
 {
 	position: absolute;
 	top:450px;
 	left: 335px;
+}
+#creationFormProperties
+{
+	font-size: 20px;
 }
 #postButton
 {

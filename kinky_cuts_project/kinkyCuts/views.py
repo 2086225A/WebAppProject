@@ -1,21 +1,24 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import render
-from kinkyCuts.models import User, Creation, Rating
+from kinkyCuts.models import User, Creation, Rating, UserProfile
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from kinkyCuts.forms import UserProfileForm
+from django.shortcuts import redirect
 
-# Create your views here.
 @csrf_exempt
 def index(request):
     if request.method == 'POST':
-        username = request.POST['name']
-        user = User.objects.get(username=username)
-        data = request.POST['imageData']
-        allCreations = Creation.objects.all()
-        imageid = len(allCreations) + 1
-        newC = Creation.objects.create(user=user, imageID=imageid, picture="1.png")
-        newC.save()
+		form = ImageUploadForm(request.POST, request.FILES)
+		if form.is_valid():
+			username = request.user.get_username()
+			user = User.objects.get(username=username)
+			allCreations = Creation.objects.all()
+			imageid = len(allCreations) + 1
+			pic = form.cleaned_data['image']
+			newC = Creation.objects.create(user=user, imageID=imageid, picture=pic)
+			newC.save();
 
     context_dict = {}
     if request.user.is_authenticated():
@@ -78,19 +81,45 @@ def mypictures(request):
 
 def myaccount(request):
     context_dict = {}
-    return render(request, 'kinkyCuts/myaccount.html', context_dict)
+    #create userprofile object for any user that does not currently have one
+    userprofiles = UserProfile.objects.all()
+    b = "false"
+    for profile in userprofiles:
+        if request.user == profile.user:
+            b = "true"
+    if b == "false":
+        user = request.user
+        profile1 = UserProfile.objects.create(user=user, profilepic="default.png")
+        profile1.save()
+
+
+    if request.method == 'POST':
+        user_profile_form = UserProfileForm(data=request.POST, instance=request.user.userprofile)
+        if user_profile_form.is_valid():
+            if request.user.is_authenticated():
+                user_profile = UserProfile.objects.get(user_id=request.user.id)
+                if 'profilepic' in request.FILES:
+                    user_profile.profilepic = request.FILES['profilepic']
+                user_profile.save()
+
+                return redirect('/kinkycuts/myaccount/')
+
+
+    user_profile_form = UserProfileForm(instance=request.user.userprofile)
+    #show users information
+    user = request.user
+    profile = UserProfile.objects.get(user=user)
+    context_dict['user_name'] = user.username
+    context_dict['user_email'] = user.email
+    context_dict['userprofile'] = profile
+    context_dict['profile_form'] = user_profile_form
+
+    return render(request, 'kinkycuts/myaccount.html', context_dict)
+
+def editProfile(request):
+    return render(request, 'kinkycuts/edit_profile.html')
 
 
 def helpage(request):
     context_dict = {}
     return render(request, 'kinkyCuts/help.html', context_dict)
-
-
-def sign(request):
-    context_dict = {}
-    return render(request, 'kinkyCuts/sign.html', context_dict)
-
-
-def canvas(request):
-    context_dict = {}
-    return render(request, 'kinkyCuts/canvas.html', context_dict)

@@ -11,8 +11,8 @@
 
 {% for pic in pictures %}
     <div class="img">
-            <a target="_blank" href={% static "/media/media/"|addstr:pic.picture %}>
-            <img src={% static "/media/media/"|addstr:pic.picture %} alt="Klematis" width="150" height="160"></a>
+            <a target="_blank" href={% static "/media/"|addstr:pic.picture %}>
+            <img src={% static "/media/"|addstr:pic.picture %} alt="Klematis" width="150" height="160"></a>
     {% if user.is_authenticated %}
             {% if pic.user != user %}
                 {% if pic in ratings %}
