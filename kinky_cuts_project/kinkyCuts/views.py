@@ -114,7 +114,7 @@ def myaccount(request):
     context_dict['userprofile'] = profile
     context_dict['profile_form'] = user_profile_form
 
-    return render(request, 'kinkycuts/myaccount.html', context_dict)
+    return render(request, 'kinkyCuts/myaccount.html', context_dict)
 
 def editProfile(request):
     context_dict = {}
