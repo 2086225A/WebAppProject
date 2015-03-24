@@ -92,6 +92,26 @@ function readURL(input)
 	}
 }
 
+function postCreation()
+{
+	var canvas = document.getElementById("canvas");
+	
+	var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "/kinkycuts/");
+
+    
+	var hiddenField = document.createElement("input");
+	hiddenField.setAttribute("type", "hidden");
+	hiddenField.setAttribute("name", "imagedata");
+	hiddenField.setAttribute("value", canvas.toDataURL());
+	form.appendChild(hiddenField);
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+///////////////
 $("#userFile").change(function(){
 	readURL(this);
 });

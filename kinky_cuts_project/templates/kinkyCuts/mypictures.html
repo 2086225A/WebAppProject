@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="{% static "styling/explorestyle.css" %}">
 {% for pic in pictures %}
             <div class="img" style="border: 2px solid #33CCCC; border-radius: 10px;">
-                <a target="_blank" href={% static "/media/"|addstr:pic.picture %}><img src={% static "/media/"|addstr:pic.picture %} alt="Klematis" width="150" height="160"></a>
+                <a target="_blank" href={{ pic.picture }}><img src={{ pic.picture }} alt="Klematis" width="150" height="160"></a>
                 <div class="desc">
                     Likes: {{ pic.likes }}
                 </div>

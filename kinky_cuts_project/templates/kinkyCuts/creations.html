@@ -4,7 +4,7 @@
 	<ul class="nav nav-sidebar">
 	{% for creation in creations %}
 		<li>{{ creation.user }}</li>
-		<li><img src={% static "/media/"|addstr:creation.picture %} height="110" width="100" style="border: 2px solid #000000; border-radius: 10px;"></li>
+		<li><img src={{ creation.picture }} height="110" width="100" style="border: 2px solid #000000; border-radius: 10px;"></li>
 		<li><img src={% static "images/liked.png" %}> {{ creation.likes }}</li>
 		<br></br>
 	{% endfor %}

@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from kinkyCuts.forms import UserProfileForm, ImageUploadForm
 from django.shortcuts import redirect
 
+'''
 @csrf_exempt
 def index(request):
     if request.method == 'POST':
@@ -25,6 +26,24 @@ def index(request):
         context_dict['username'] = request.user.get_username()
 
     return render(request, 'kinkyCuts/index.html', context_dict)
+'''
+@csrf_exempt
+def index(request):
+	
+	if request.method == 'POST':		
+		username = request.user.get_username()
+		user = User.objects.get(username=username)
+		allCreations = Creation.objects.all()
+		imageid = len(allCreations) + 1
+		
+		newC = Creation.objects.create(user=user, imageID=imageid, picture=request.POST['imagedata'])
+		newC.save();
+
+	context_dict = {}
+	if request.user.is_authenticated():
+		context_dict['username'] = request.user.get_username()
+
+	return render(request, 'kinkyCuts/index.html', context_dict)
 
 def about(request):
     context_dict = {}
