@@ -19,14 +19,6 @@
     cursor: inherit;
     display: block;
 }
-#embed-responsive
-{
-	width:2000px;
-	height:900px;
-	position:absolute;
-	left:0px;
-	top:100px;
-}
 #canvasArea
 {
 	position: absolute;
