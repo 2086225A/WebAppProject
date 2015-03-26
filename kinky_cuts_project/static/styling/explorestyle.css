@@ -13,6 +13,11 @@ div.img img {
     border: 1px solid #ffffff;
 }
 
+.img
+{
+	border: 2px solid #33CCCC;
+	border-radius: 10px;
+}
 
 div.desc {
     text-align: center;
@@ -33,4 +38,18 @@ div.desc {
     -moz-box-shadow: 0 0 10px #ccc;
     -webkit-box-shadow: 0 0 10px #ccc;
     box-shadow: 0 0 10px #ccc;
+}
+
+#pictureArea
+{
+	position:absolute;
+	left:100px;
+	top:80px;
+}
+
+#exploreArea
+{
+	style=position:absolute;
+	left:100px;
+	top:80px;
 }

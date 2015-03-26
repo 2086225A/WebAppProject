@@ -10,7 +10,7 @@
 	<div align = "center">
 		<h2>Drag a hairstyle to get started!<h2>
 	</div>
-	<div class="embed-responsive embed-responsive-16by9" style="width:2000px; height:900px; position:absolute; left:0px; top:100px">
+	<div id="embed-responsive" class="embed-responsive embed-responsive-16by9">
   		
 		<!-- The canvas element -->
 		<div id="canvasArea">
@@ -40,7 +40,7 @@
 		<!-- Post Button -->
 		{% if user.is_authenticated %}
 			<div id="postArea">
-				<button id="postButton" style="font-size: 20px" class="btn btn-primary" onclick="postCreation();">Share Creation!</button>
+				<button id="postButton" class="btn btn-primary" onclick="postCreation();">Share Creation!</button>
 			</div>
 		{% else %}
 			<div id="postArea">

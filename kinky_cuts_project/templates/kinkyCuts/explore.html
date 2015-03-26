@@ -5,13 +5,12 @@
 <title>{% block title %}Explore{% endblock %}</title>
 </head>
 {% block body_block %}
-<div style="position:absolute; left:100px; top:80px">
 <link rel="stylesheet" type="text/css" href="{% static "styling/explorestyle.css" %}">
 <script type="text/javascript" src="{% static "scripts/explorescript.js" %}"> </script>
 
-
+<div id="exploreArea">
 {% for pic in pictures %}
-    <div class="img" style="border: 2px solid #33CCCC; border-radius: 10px;">
+    <div class="img">
             <a target="_blank" href={{ pic.picture }}>
             <img src={{ pic.picture }} alt="Klematis" width="150" height="160"></a>
     {% if user.is_authenticated %}
