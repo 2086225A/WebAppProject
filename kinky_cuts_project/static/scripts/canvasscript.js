@@ -1,3 +1,4 @@
+/* Globals */
 var draggedIndex = "0";
 var droppedItem = false;
 var dragging = false;
@@ -9,6 +10,7 @@ var currentX = imageXOffset;
 var currentY = imageYOffset;
 var scale = 1;
 
+/* Add Event listeners needed to the canvas */
 window.onload = function()
 {
 	var can = document.getElementById("canvas");
@@ -19,6 +21,8 @@ window.onload = function()
 	can.addEventListener("dragend", dragEnd, false);	
 }
 
+/* Render the current background image and a hairstyle if present.
+   Executed in a set interval */
 setInterval(function()
 {
 	var can = document.getElementById("canvas");
@@ -36,6 +40,7 @@ setInterval(function()
 
 }, 1);
 
+/* Event listeners for canvas */
 function dragStart(event)
 {
 	dragging = true;
@@ -77,6 +82,7 @@ function drop(ev)
 	
 }
 
+/* Used for the load image button. Transfers the loaded image's data to the canvas (see jQuery below) */
 function readURL(input) 
 {
 	if (input.files && input.files[0]) 
@@ -92,6 +98,8 @@ function readURL(input)
 	}
 }
 
+/* Generates a form for a POST request, adds a hiddenfield containing
+   the canvas data and submits the POST request to be handled in the index view */
 function postCreation()
 {
 	var canvas = document.getElementById("canvas");
@@ -111,25 +119,30 @@ function postCreation()
     form.submit();
 }
 
-///////////////
+
+/* Reads the url from the user's uploaded image */
 $("#userFile").change(function(){
 	readURL(this);
 });
-$("#creationUpload").change(function(){
-	form = document.getElementById("creationForm");
-	form.submit();
-});
+
+/* Transfers the canvas' data to the href of the download link (button in disguise) */
 $("#downloadImgLink").click(function(){
 	$('#downloadImgLink').attr('href', canvas.toDataURL());
 });
+
+/* Resets the offsets of the rendered background image */
 $("#refreshButton").click(function(){
 	imageXOffset = 0;
 	imageYOffset = 0;
 });
+
+/* Increases the scale of the background image */
 $("#zoomin").click(function(){
 	scale += 0.1;
 	if(scale > 2) scale = 2;
 });
+
+/* Decreases the scale of the background image */
 $("#zoomout").click(function(){
 	scale -= 0.1;
 	if(scale < 0.1) scale = 0.1;
